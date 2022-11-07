@@ -7,15 +7,21 @@ package Modelo;
 public class actualizableImp implements Actualizable{
     private Producto[] productos;
     private ManipuladorDocs documento = new ManipuladorDocs("archivoCandidatos.txt");
+    private int[] votos;
 
     public actualizableImp(int cantidadCandidatos) {
+        votos=obtenerInfoCandidatos();
         this.productos = new Producto[cantidadCandidatos];
-        this.productos[0] = new Producto(0,"Producto 1");
-        this.productos[1] = new Producto(0,"Producto 2");
-        this.productos[2] = new Producto(0,"Producto 3");
+        this.productos[0] = new Producto(votos[0],"Producto 1");
+        this.productos[1] = new Producto(votos[1],"Producto 2");
+        this.productos[2] = new Producto(votos[2],"Producto 3");
         guardarInfoCandidatosa();
     }
     
+    public int[]obtenerInfoCandidatos(){
+        return documento.obtenerVotosDoc();
+    }
+
     public void guardarInfoCandidatosa(){
         documento.escribirArchivo(productos);
     }

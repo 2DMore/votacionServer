@@ -17,8 +17,6 @@ public class Server {
     public static void main(String[] args) {
         ServerMultiCliente server  = new ServerMultiCliente();
         try {
-            
-            
             //Conexion por primera vez FUNCION DE CLIENTE UNICO
             JSONObject jsonServerInfo = new JSONObject();
             Scanner lector = new Scanner(System.in);

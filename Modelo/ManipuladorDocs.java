@@ -46,6 +46,18 @@ public class ManipuladorDocs {
             fileScanner.close();
         return content;
     }
+
+    public int[] obtenerVotosDoc(){
+        String[] content = new String[3];
+        content=getContentFile();
+        int[] votos=new int[3];
+        for(int i=0;i<content.length;i++){
+            String[] columnas=content[i].split(",");
+            System.out.println(columnas[1]);
+            votos[i]=Integer.parseInt(columnas[1].trim());
+        }
+        return votos;
+    }
   
     public void closeFile(){
         fileScanner.close();
