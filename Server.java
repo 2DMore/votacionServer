@@ -21,12 +21,12 @@ public class Server {
             JSONObject jsonServerInfo = new JSONObject();
             Scanner lector = new Scanner(System.in);
             BrokerComm commBroker = new BrokerComm();
-            String ipBroker=lector.nextLine();
-            int portBroker=Integer.parseInt(lector.nextLine());
-            String ipActual="";
-            int portActual=6666;
+            //String ipBroker=lector.nextLine();
+            //int portBroker=Integer.parseInt(lector.nextLine());
+            String ipActual="192.168.0.9";
+            int portActual=3434;
             try{
-                commBroker.empezarConexion("192.168.248.250", portActual);
+                commBroker.empezarConexion("192.168.0.9", portActual);
                 jsonServerInfo.accumulate("servicio", "registrar");
                 jsonServerInfo.accumulate("variables", "10");
                 jsonServerInfo.accumulate("variable1", "servidor");
