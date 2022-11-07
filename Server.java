@@ -28,7 +28,7 @@ public class Server {
             try{
                 commBroker.empezarConexion("192.168.248.250", portActual);
                 jsonServerInfo.accumulate("servicio", "registrar");
-                jsonServerInfo.accumulate("variables", "4");
+                jsonServerInfo.accumulate("variables", "10");
                 jsonServerInfo.accumulate("variable1", "servidor");
                 jsonServerInfo.accumulate("valor1", ipActual);
                 jsonServerInfo.accumulate("variable2", "puerto");
