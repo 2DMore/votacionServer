@@ -27,13 +27,29 @@ public class Server {
             int portActual=6666;
             try{
                 commBroker.empezarConexion("192.168.248.250", portActual);
-                jsonServerInfo.put("variables", "4");
-                jsonServerInfo.put("variable1", "servidor");
-                jsonServerInfo.put("valor1", ipActual);
-                jsonServerInfo.put("variable2", "puerto");
-                jsonServerInfo.put("valor2", portActual);
-                //jsonServerInfo.put("servicio", "votar");
-                //jsonServerInfo.put("parametros", 1);
+                jsonServerInfo.accumulate("servicio", "registrar");
+                jsonServerInfo.accumulate("variables", "4");
+                jsonServerInfo.accumulate("variable1", "servidor");
+                jsonServerInfo.accumulate("valor1", ipActual);
+                jsonServerInfo.accumulate("variable2", "puerto");
+                jsonServerInfo.accumulate("valor2", portActual);
+                jsonServerInfo.accumulate("variable3", "servicio");
+                jsonServerInfo.accumulate("valor3","votar");
+                jsonServerInfo.accumulate("variable4", "parametros");
+                jsonServerInfo.accumulate("valor4", "1");
+                jsonServerInfo.accumulate("variable5", "servicio");
+                jsonServerInfo.accumulate("valor5","contar");
+                jsonServerInfo.accumulate("variable6", "parametros");
+                jsonServerInfo.accumulate("valor6", "0");
+                jsonServerInfo.accumulate("variable7", "servicio");
+                jsonServerInfo.accumulate("valor7","registrar");
+                jsonServerInfo.accumulate("variable8", "parametros");
+                jsonServerInfo.accumulate("valor8", "2");
+                jsonServerInfo.accumulate("variable9", "servicio");
+                jsonServerInfo.accumulate("valor9","listar");
+                jsonServerInfo.accumulate("variable10", "parametros");
+                jsonServerInfo.accumulate("valor10", "0");
+
                 commBroker.realizarConexionBroker(jsonServerInfo);
                 commBroker.stop();
 
