@@ -88,24 +88,24 @@ public class actualizableImp implements Actualizable{
     public JSONObject listarJSONVotos(){
         String[] arrayBit=bitacora.getContenidoBitacora();
         JSONObject listJSON=new JSONObject();
-        listJSON.put("servicio", "contar");
-        listJSON.put("respuestas", arrayBit.length);
+        listJSON.accumulate("servicio", "contar");
+        listJSON.accumulate("respuestas",""+arrayBit.length);
         for(int i=0; i<arrayBit.length;i++){
-            listJSON.put("respuesta"+i, arrayBit[i]);
+            listJSON.accumulate("respuesta"+i, arrayBit[i]);
         }
         return listJSON;
     }
 
     public JSONObject contarObjBitacora(){
         JSONObject candJSON=new JSONObject();
-        candJSON.put("servicio", "contar");
-        candJSON.put("respuestas", "3");
-        candJSON.put("respuesta1", "Producto 1");
-        candJSON.put("valor1", getProductoUnoVotos());
-        candJSON.put("respuesta2", "Producto 2");
-        candJSON.put("valor2", getProductoDosVotos());
-        candJSON.put("respuesta3", "Producto 3");
-        candJSON.put("valor3", getProductoTresVotos());
+        candJSON.accumulate("servicio", "contar");
+        candJSON.accumulate("respuestas", "3");
+        candJSON.accumulate("respuesta1", "Producto 1");
+        candJSON.accumulate("valor1", ""+getProductoUnoVotos());
+        candJSON.accumulate("respuesta2", "Producto 2");
+        candJSON.accumulate("valor2", ""+getProductoDosVotos());
+        candJSON.accumulate("respuesta3", "Producto 3");
+        candJSON.accumulate("valor3", ""+getProductoTresVotos());
         return candJSON;
     }
 
@@ -115,10 +115,10 @@ public class actualizableImp implements Actualizable{
         bitacora.escribirBitacora(evento, fecha);
         String[] arrayBit=bitacora.getContenidoBitacora();
         JSONObject bitJSON=new JSONObject();
-        bitJSON.put("servicio", "registrar");
-        bitJSON.put("respuestas", "1");
-        bitJSON.put("respuesta1", "eventos");
-        bitJSON.put("valor1", arrayBit.length);
+        bitJSON.accumulate("servicio", "registrar");
+        bitJSON.accumulate("respuestas", "1");
+        bitJSON.accumulate("respuesta1", "eventos");
+        bitJSON.accumulate("valor1", ""+arrayBit.length);
         return bitJSON;
     }
 }
