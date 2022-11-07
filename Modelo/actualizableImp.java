@@ -1,5 +1,8 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.json.JSONObject;
 
 /**
@@ -7,58 +10,34 @@ import org.json.JSONObject;
  * @author isaac
  */
 public class actualizableImp implements Actualizable{
-    private Producto[] productos;
+    private ArrayList<Producto> productos;
     private ManipuladorDocs documento = new ManipuladorDocs("archivoCandidatos.txt");
     private ManipuladorDocs bitacora = new ManipuladorDocs("bitacora.txt");
     private int[] votos;
 
-    public actualizableImp(int cantidadCandidatos) {
-        votos=obtenerInfoCandidatos();
-        this.productos = new Producto[cantidadCandidatos];
-        this.productos[0] = new Producto(votos[0],"Producto 1");
-        this.productos[1] = new Producto(votos[1],"Producto 2");
-        this.productos[2] = new Producto(votos[2],"Producto 3");
-        guardarInfoCandidatosa();
+    public actualizableImp() {
+        String[] arrayCand=documento.obtenerCandidatosDoc();
+        int[] arrayVotos=documento.obtenerVotosDoc();
+        for(int i=0;i<arrayCand.length;i++){
+            productos.add(new Producto(arrayVotos[i], arrayCand[i]));
+        }
     }
     
     public int[]obtenerInfoCandidatos(){
         return documento.obtenerVotosDoc();
     }
     
+    public String[][] getTextoCand(){
+        String[][] arrayArch=documento.leerArchivo();
+        return arrayArch;
+    }
 
     public void guardarInfoCandidatosa(){
         documento.escribirArchivo(productos);
     }
 
-    public Producto[] getProducto() {
-        return productos;
-    }
-    
-    public void actualizarProductoUno(){
-        productos[0].aumentarVotos();
-        actualizarInformacion();
-    }
-    
-    public int getProductoUnoVotos(){
-        return productos[0].getVotos();
-    }
-    
-    public void actualizarProductoDos(){
-        productos[1].aumentarVotos();
-        actualizarInformacion();
-    }
-    
-    public int getProductoDosVotos(){
-        return productos[1].getVotos();
-    }
-    
-    public void actualizarProductoTres(){
-        productos[2].aumentarVotos();
-        actualizarInformacion();
-    }
-    
-    public int getProductoTresVotos(){
-        return productos[2].getVotos();
+    public int getProductoVotos(){
+        return 0;
     }
     
     @Override
@@ -68,20 +47,24 @@ public class actualizableImp implements Actualizable{
 
     public JSONObject votarJSON(JSONObject solicitud){
         JSONObject voteJSON=new JSONObject();
-        voteJSON.put("servicio", "votar");
-        voteJSON.put("respuestas", "1");
-        if(solicitud.getString("variable1").equals("Producto 1")){
-            voteJSON.put("respuesta1", solicitud.getString("variable1"));
-            voteJSON.put("valor1", getProductoUnoVotos());
+        String[] arrayArch=documento.obtenerCandidatosDoc();
+        boolean existe=false;
+        voteJSON.accumulate("servicio", "votar");
+        voteJSON.accumulate("respuestas", "1");
+        for(int i=0;i<arrayArch.length;i++){//Checar si el elemento a votar esta en el archivo
+            if(solicitud.getString("variable1").equals(arrayArch[i])){
+                existe=true;
+                productos.get(i).aumentarVotos();
+                voteJSON.accumulate("respuesta1", solicitud.getString("variable1"));
+                voteJSON.accumulate("valor1", ""+productos.get(i).getVotos());
+            }
         }
-        if(solicitud.getString("variable1").equals("Producto 2")){
-            voteJSON.put("respuesta1", solicitud.getString("variable1"));
-            voteJSON.put("valor1", getProductoDosVotos());
+        if(!existe){
+            productos.add(new Producto(1, solicitud.getString("variable1")));
+            voteJSON.accumulate("respuesta1", solicitud.getString("variable1"));
+            voteJSON.accumulate("valor1", "1");
         }
-        if(solicitud.getString("variable1").equals("Producto 3")){
-            voteJSON.put("respuesta1", solicitud.getString("variable1"));
-            voteJSON.put("valor1", getProductoTresVotos());
-        }
+        documento.escribirArchivo(productos);
         return voteJSON;
     }
 
@@ -90,8 +73,11 @@ public class actualizableImp implements Actualizable{
         JSONObject listJSON=new JSONObject();
         listJSON.accumulate("servicio", "contar");
         listJSON.accumulate("respuestas",""+arrayBit.length);
+        int j=1;
         for(int i=0; i<arrayBit.length;i++){
-            listJSON.accumulate("respuesta"+i, arrayBit[i]);
+            listJSON.accumulate("respuesta"+j, "evento");
+            listJSON.accumulate("valor"+j, arrayBit[i]);
+            j++;
         }
         return listJSON;
     }
@@ -99,13 +85,14 @@ public class actualizableImp implements Actualizable{
     public JSONObject contarObjBitacora(){
         JSONObject candJSON=new JSONObject();
         candJSON.accumulate("servicio", "contar");
-        candJSON.accumulate("respuestas", "3");
-        candJSON.accumulate("respuesta1", "Producto 1");
-        candJSON.accumulate("valor1", ""+getProductoUnoVotos());
-        candJSON.accumulate("respuesta2", "Producto 2");
-        candJSON.accumulate("valor2", ""+getProductoDosVotos());
-        candJSON.accumulate("respuesta3", "Producto 3");
-        candJSON.accumulate("valor3", ""+getProductoTresVotos());
+        candJSON.accumulate("respuestas", ""+productos.size());
+        int j=1;
+        for(int i=0;i<productos.size();i++){//Checar si el elemento a votar esta en el archivo
+            candJSON.accumulate("respuesta"+j, productos.get(i).getNombreProducto());
+            candJSON.accumulate("valor"+j, ""+productos.get(i).getVotos());
+            j++;
+        }
+        
         return candJSON;
     }
 

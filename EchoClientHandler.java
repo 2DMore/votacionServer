@@ -34,7 +34,7 @@ public class EchoClientHandler extends Thread{
             while(true){
                 String in = clienteSocket.getInputStream().toString();
                 JSONObject jsonObject = new JSONObject(in);
-                actualizableImp actualizable = new actualizableImp(3);
+                actualizableImp actualizable = new actualizableImp();
                 switch(jsonObject.getString("servicio")){
                     case "contar":
                         JSONObject contObj=actualizable.contarObjBitacora();
