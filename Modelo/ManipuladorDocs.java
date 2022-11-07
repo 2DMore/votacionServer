@@ -47,6 +47,7 @@ public class ManipuladorDocs {
         return content;
     }
 
+
     public int[] obtenerVotosDoc(){
         String[] content = new String[3];
         content=getContentFile();
@@ -77,5 +78,28 @@ public class ManipuladorDocs {
             Logger.getLogger(ManipuladorDocs.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void escribirBitacora(String evento, String fecha){
+        PrintWriter fileOut;
+        try{
+            fileOut = new PrintWriter(new FileWriter("bitacora.txt",true));
+            fileOut.println(fecha+" "+evento);
+            fileOut.close();
+        }catch(FileNotFoundException e){
+            System.out.println("Error: "+ e.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(ManipuladorDocs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public String[] getContenidoBitacora(){
+        String[] content = new String[2];
+        int i = 0;
+           while (fileScanner.hasNextLine()) {
+               content[i]=fileScanner.nextLine()+"\n";
+               i++;
+           }
+           fileScanner.close();
+       return content;
+   }
     
 }

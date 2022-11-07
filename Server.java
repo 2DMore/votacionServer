@@ -27,10 +27,13 @@ public class Server {
             int portActual=6666;
             try{
                 commBroker.empezarConexion("192.168.248.250", portActual);
-                jsonServerInfo.put("Servidor", ipActual);
-                jsonServerInfo.put("Puerto", portActual);
-                jsonServerInfo.put("Servicio", "votar");
-                jsonServerInfo.put("Parametros", 1);
+                jsonServerInfo.put("variables", "4");
+                jsonServerInfo.put("variable1", "servidor");
+                jsonServerInfo.put("valor1", ipActual);
+                jsonServerInfo.put("variable2", "puerto");
+                jsonServerInfo.put("valor2", portActual);
+                //jsonServerInfo.put("servicio", "votar");
+                //jsonServerInfo.put("parametros", 1);
                 commBroker.realizarConexionBroker(jsonServerInfo);
                 commBroker.stop();
 

@@ -5,10 +5,12 @@
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import org.json.JSONObject;
 
 import Modelo.actualizableImp;
 
@@ -27,44 +29,38 @@ public class EchoClientHandler extends Thread{
     public void run(){
         try {
             out = new PrintWriter(clienteSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
-            actualizableImp actualizable = new actualizableImp(3);
-            String mensaje;
             out.println("Conección hecha");
             System.out.println("Conexion hecha");
-            while((mensaje=in.readLine()) != null){
-                switch(in.readLine()){
-                    case "1":
-                        actualizable.actualizarProductoUno();
-                        out.println(actualizable.getProductoUnoVotos()+","+actualizable.getProductoDosVotos()+","+actualizable.getProductoTresVotos());
-                        break;
-                    case "2":
-                        actualizable.actualizarProductoDos();
-                        out.println(actualizable.getProductoUnoVotos()+","+actualizable.getProductoDosVotos()+","+actualizable.getProductoTresVotos());
-                        break;
-                    case "3":
-                        actualizable.actualizarProductoTres();
-                        out.println(actualizable.getProductoUnoVotos()+","+actualizable.getProductoDosVotos()+","+actualizable.getProductoTresVotos());
-                        break;
-
+            while(true){
+                String in = clienteSocket.getInputStream().toString();
+                JSONObject jsonObject = new JSONObject(in);
+                actualizableImp actualizable = new actualizableImp(3);
+                switch(jsonObject.getString("servicio")){
+                    case "contar":
+                        JSONObject contObj=actualizable.contarObjBitacora();
+                        out.println(contObj.toString());
+                        continue;
+                    case "votar":
+                        JSONObject votObj=actualizable.votarJSON(jsonObject);
+                        out.println(votObj.toString());
+                        continue;
+                    case "registrar":
+                        JSONObject regObj=actualizable.registroJSONBitacora(jsonObject);
+                        out.println(regObj.toString());
+                        continue;
+                    case "listar":
+                        JSONObject listObj=actualizable.listarJSONVotos();
+                        out.println(listObj.toString());
+                        continue;
                     default:
                         out.println("Adios cliente" +clienteSocket.getPort());
                         System.out.println("Cliente desconectado");
                         break;
 
                 }
-                /* 
-                if(".".equals(mensaje)){
-                    out.println("Adios cliente" +clienteSocket.getPort());
-                    System.out.println("Cliente desconectado");
-                    break;
-                }else{
-                    out.println("Server: "+ mensaje.toUpperCase() +"["+clienteSocket.getPort()+"]");
-                }*/
+                break;
             }
             out.println("Cerrando...");
-            
-            in.close();
             out.close();
             clienteSocket.close();
         } catch (IOException ex) { 
