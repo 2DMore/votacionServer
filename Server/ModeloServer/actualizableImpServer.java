@@ -11,8 +11,8 @@ import org.json.JSONObject;
  */
 public class actualizableImpServer implements Actualizable{
     private ArrayList<Producto> productos=new ArrayList<>();
-    private ManipuladorDocs documento = new ManipuladorDocs("src\\Server\\archivoCandidatos.txt");
-    private ManipuladorDocs bitacora = new ManipuladorDocs("src\\Server\\bitacora.txt");
+    private ManipuladorDocs documento = new ManipuladorDocs("archivoCandidatos.txt");
+    private ManipuladorDocs bitacora = new ManipuladorDocs("bitacora.txt");
     private int[] votos;
 
     public actualizableImpServer() {

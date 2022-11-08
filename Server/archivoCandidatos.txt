@@ -1,3 +1,0 @@
-Producto1,1
-Producto2,1
-Producto3,1

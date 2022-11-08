@@ -31,7 +31,7 @@ public class EchoClientHandler extends Thread{
     public void run(){
         try {
             out = new PrintWriter(clienteSocket.getOutputStream(), true);
-            out.println("Conección hecha");
+            //out.println("Conección hecha");
             in = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
             System.out.println("Conexion hecha");
             while(true){

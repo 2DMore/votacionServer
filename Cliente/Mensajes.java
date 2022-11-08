@@ -37,10 +37,16 @@ public class Mensajes {
     }
     public static JSONObject contar2(){
         JSONObject mensaje = new JSONObject();
-        mensaje.put("servicio", "ejecutar");
-        mensaje.put("variables", 1);
-        mensaje.put("variable1", "servicio");
-        mensaje.put("valor1", "contar");
+        mensaje.put("servicio", "contar");
+        mensaje.put("variables", 0);
+        return mensaje;
+    }
+    public static JSONObject votar(String candidato){
+        JSONObject mensaje=new JSONObject();
+        mensaje.put("servicio", "votar");
+        mensaje.put("variables",1);
+        mensaje.put("variable1",candidato);
+        mensaje.put("valor",1);
         return mensaje;
     }
 }

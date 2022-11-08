@@ -177,7 +177,7 @@ public class Servicios {
                    resultado = coneccion.mensajear(ip, port, parseEjecutarServer(objeto));
                    System.out.println(resultado);
                    JSONObject envio= new JSONObject(resultado);
-                   return envio.toString();
+                   return parseEjecutarCliente(envio);
                 } catch (IOException ex) {
                    resultado = "{\"error\":1}";
                    return resultado;
@@ -211,16 +211,19 @@ public class Servicios {
     }
     public String parseEjecutarCliente(JSONObject mensaje){
         JSONObject respuesta = new JSONObject();
-        int variables = mensaje.getInt("variables");
+        int variables = mensaje.getInt("respuestas");
         respuesta.put("servicio", "ejecutar");
         respuesta.put("respuestas", variables+1);
-        respuesta.put("respuesta1", mensaje.getString("servicio"));
+        respuesta.put("respuesta1", "servicio");
+        respuesta.put("valor1", mensaje.getString("servicio"));
 
-        int j=1;
         for(int i=0; i<variables; i++){
+            String var = "respuesta"+ Integer.toString(i+1);
             String val = "valor"+ Integer.toString(i+1);
+            String respustaA = mensaje.getString(var);
             Object valor  = mensaje.get(val);
-            respuesta.put("respuesta"+(i+1), valor);
+            respuesta.put("respuesta"+(i+2), respustaA);
+            respuesta.put("valor"+(i+2), valor);
         }
         return respuesta.toString();
     }
