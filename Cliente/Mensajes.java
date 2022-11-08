@@ -41,12 +41,22 @@ public class Mensajes {
         mensaje.put("variables", 0);
         return mensaje;
     }
-    public static JSONObject votar(String candidato){
+    public static String votar(String candidato){
+        JSONObject mensaje=new JSONObject();
+        mensaje.put("servicio", "ejecutar");
+        mensaje.put("variables",2);
+        mensaje.put("variable1","servicio");
+        mensaje.put("valor1","votar");
+        mensaje.put("variable2", candidato);
+        mensaje.put("valor2", 1);
+        return mensaje.toString();
+    }
+    public static JSONObject votar2(String candidato){
         JSONObject mensaje=new JSONObject();
         mensaje.put("servicio", "votar");
         mensaje.put("variables",1);
         mensaje.put("variable1",candidato);
-        mensaje.put("valor",1);
+        mensaje.put("valor1",1);
         return mensaje;
     }
 }
