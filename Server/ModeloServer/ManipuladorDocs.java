@@ -97,7 +97,11 @@ public class ManipuladorDocs {
         try{
             fileOut = new PrintWriter(new FileWriter("archivoCandidatos.txt",false));
             for(int i = 0; i< candidatosVotos.size();i++){
-                fileOut.println(candidatosVotos.get(i).getNombreProducto()+","+candidatosVotos.get(i).getVotos());
+                if(i==0){
+                    fileOut.print(candidatosVotos.get(i).getNombreProducto()+","+candidatosVotos.get(i).getVotos());
+                }else{
+                    fileOut.print("\n"+candidatosVotos.get(i).getNombreProducto()+","+candidatosVotos.get(i).getVotos());
+                }
             }
             fileOut.close();
         }catch(FileNotFoundException e){

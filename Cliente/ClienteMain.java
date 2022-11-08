@@ -36,7 +36,7 @@ public class ClienteMain {
             System.out.println("No se pudo conectar al broker");
         }
         try {
-            String sendMessage = broker.sendMessage(Mensajes.votar("CHOCOLATE"));
+            String sendMessage = broker.sendMessage(Mensajes.votar("Producto 1"));
             System.out.println(sendMessage);
         } catch (IOException ex) {
         }

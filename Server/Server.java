@@ -15,7 +15,7 @@ public class Server {
      */
     public static void main(String[] args) {
         ServerMultiCliente server  = new ServerMultiCliente();
-        try {
+        /*try {
             //Conexion por primera vez FUNCION DE CLIENTE UNICO
             JSONObject jsonServerInfo = new JSONObject();
             Scanner lector = new Scanner(System.in);
@@ -64,14 +64,14 @@ public class Server {
             server.start(6666);
         } catch (IOException ex) {
             System.out.println(ex);
-        }
-        /*
+        }*/
+        
         try {
             server.start(6666);
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
+        }
         
     }
     
