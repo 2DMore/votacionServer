@@ -46,6 +46,7 @@ public class EchoClientHandler extends Thread{
                         continue;
                     case "votar":
                         JSONObject votObj=actualizable.votarJSON(jsonObject);
+                        System.out.println(votObj.toString());
                         out.println(votObj.toString());
                         continue;
                     case "registrar":

@@ -65,6 +65,13 @@ public class Server {
         } catch (IOException ex) {
             System.out.println(ex);
         }
+        /*
+        try {
+            server.start(6666);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
         
     }
     

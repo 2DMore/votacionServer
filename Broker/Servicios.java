@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.crypto.OctetStreamData;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -198,11 +201,14 @@ public class Servicios {
             String val = "valor"+ Integer.toString(i+1);
             String variable = mensaje.getString(var);
             Object valor  = mensaje.get(val);
+            System.out.println("Variable:"+ variable);
+            System.out.println("Valor: "+ valor);
             if("servicio".equals(variable)){
                 respuesta.put("servicio", (String)valor);
                 
             }else{
-                respuesta.put("variable"+j, valor);
+                respuesta.put("variable"+j, variable);
+                respuesta.put("valor"+j, valor);
                 j++;
             }
             
@@ -223,7 +229,7 @@ public class Servicios {
             String respustaA = mensaje.getString(var);
             Object valor  = mensaje.get(val);
             respuesta.put("respuesta"+(i+2), respustaA);
-            respuesta.put("valor"+(i+2), valor);
+            respuesta.put("valor"+(i+2), valor); 
         }
         return respuesta.toString();
     }

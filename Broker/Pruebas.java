@@ -13,7 +13,7 @@ import Cliente.Mensajes;
 public class Pruebas {
     public static void main(String[] args) {
         Servicios s = new Servicios();
-        /*JSONObject solicitud = new JSONObject();
+        JSONObject solicitud = new JSONObject();
         solicitud.accumulate("servicio", "registrar");
         solicitud.accumulate("variables", 4);
         solicitud.accumulate("variable1", "servidor");
@@ -44,11 +44,9 @@ public class Pruebas {
         System.out.println(s.servicios.toString());
         
         
-        JSONObject listar = new JSONObject();
-        listar.accumulate("servicio", "listar");
-        listar.accumulate("variables", 1);
-        listar.accumulate("valor1", "registrar");
-        System.out.println(s.parseMensaje(listar.toString()));*/
-        s.ejecutar(Mensajes.contar2());
+        
+        String mensajeVotar = Mensajes.votar("CHOCOLATE");
+        JSONObject mensaje = new JSONObject(mensajeVotar);
+        System.out.println(s.parseEjecutarServer(mensaje));
     }
 }
