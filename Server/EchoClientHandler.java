@@ -1,3 +1,5 @@
+package Server;
+
 /*
 
  */
@@ -12,14 +14,14 @@ import java.net.Socket;
 
 import org.json.JSONObject;
 
-import Modelo.actualizableImp;
+import Server.ModeloServer.actualizableImpServer;
 
 
 public class EchoClientHandler extends Thread{
     private Socket clienteSocket;
     private PrintWriter out;
     private BufferedReader in;
-    private actualizableImp actualizable;
+    private actualizableImpServer actualizable;
 
     public EchoClientHandler(Socket aceptar) {
         this.clienteSocket = aceptar;
@@ -30,11 +32,13 @@ public class EchoClientHandler extends Thread{
         try {
             out = new PrintWriter(clienteSocket.getOutputStream(), true);
             out.println("Conección hecha");
+            in = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
             System.out.println("Conexion hecha");
             while(true){
-                String in = clienteSocket.getInputStream().toString();
-                JSONObject jsonObject = new JSONObject(in);
-                actualizableImp actualizable = new actualizableImp();
+                String in2 = in.readLine();
+                System.out.println(in2);
+                JSONObject jsonObject = new JSONObject(in2);
+                this.actualizable = new actualizableImpServer();
                 switch(jsonObject.getString("servicio")){
                     case "contar":
                         JSONObject contObj=actualizable.contarObjBitacora();

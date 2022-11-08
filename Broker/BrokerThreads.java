@@ -29,8 +29,10 @@ public class BrokerThreads extends Thread{
             
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
-                String respuesta =Broker.s.parseMensaje(inputLine);
+                String mensaje = inputLine;
+                String respuesta =Broker.s.parseMensaje(mensaje);
                 out.println(respuesta);
+                System.out.println(mensaje);
             }
             in.close();
             out.close();

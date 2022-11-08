@@ -83,7 +83,7 @@ public class Servicios {
         JSONObject respuesta  = new JSONObject();
         respuesta.accumulate("servicio","registrar");
         respuesta.accumulate("respuetas",1);
-        respuesta.accumulate("respuetas1","identificador");
+        respuesta.accumulate("respueta1","identificador");
         respuesta.accumulate("valor1",actual);
         return respuesta.toString();
     }
@@ -174,8 +174,10 @@ public class Servicios {
                 int port  = servidoresAct.getInt(1);
                 ClienteS coneccion  = new ClienteS();
                 try {
-                   resultado = coneccion.mensajear(ip, port, objeto.toString());
-                   return resultado;
+                   resultado = coneccion.mensajear(ip, port, parseEjecutarServer(objeto));
+                   System.out.println(resultado);
+                   JSONObject envio= new JSONObject(resultado);
+                   return envio.toString();
                 } catch (IOException ex) {
                    resultado = "{\"error\":1}";
                    return resultado;
@@ -184,5 +186,42 @@ public class Servicios {
 
         }
         return resultado;
+    }
+    
+    public String parseEjecutarServer(JSONObject mensaje){
+        JSONObject respuesta = new JSONObject();
+        int variables = mensaje.getInt("variables");
+        respuesta.put("variables", variables-1);
+        int j=1;
+        for(int i=0; i<variables; i++){
+            String var = "variable"+ Integer.toString(i+1);
+            String val = "valor"+ Integer.toString(i+1);
+            String variable = mensaje.getString(var);
+            Object valor  = mensaje.get(val);
+            if("servicio".equals(variable)){
+                respuesta.put("servicio", (String)valor);
+                
+            }else{
+                respuesta.put("variable"+j, valor);
+                j++;
+            }
+            
+        }
+        return respuesta.toString();
+    }
+    public String parseEjecutarCliente(JSONObject mensaje){
+        JSONObject respuesta = new JSONObject();
+        int variables = mensaje.getInt("variables");
+        respuesta.put("servicio", "ejecutar");
+        respuesta.put("respuestas", variables+1);
+        respuesta.put("respuesta1", mensaje.getString("servicio"));
+
+        int j=1;
+        for(int i=0; i<variables; i++){
+            String val = "valor"+ Integer.toString(i+1);
+            Object valor  = mensaje.get(val);
+            respuesta.put("respuesta"+(i+1), valor);
+        }
+        return respuesta.toString();
     }
 }
