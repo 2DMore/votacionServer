@@ -52,7 +52,7 @@ public class ManipuladorDocs {
         fileScanner.close();
     }
     
-    public void escribirArchivo(Producto[] candidatosVotos){
+    /*public void escribirArchivo(Producto[] candidatosVotos){
         PrintWriter fileOut;
         try{
             fileOut = new PrintWriter(new FileWriter("archivoCandidatos.txt",false));
@@ -65,6 +65,6 @@ public class ManipuladorDocs {
         } catch (IOException ex) {
             Logger.getLogger(ManipuladorDocs.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
     
 }

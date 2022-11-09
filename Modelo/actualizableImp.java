@@ -18,7 +18,7 @@ public class actualizableImp implements Actualizable{
     }
     
     public void guardarInfoCandidatosa(){
-        documento.escribirArchivo(productos);
+        //documento.escribirArchivo(productos);
     }
 
     public Producto[] getProducto() {

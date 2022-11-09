@@ -94,6 +94,9 @@ public class ManipuladorDocs {
     
     public void escribirArchivo(ArrayList<Producto> candidatosVotos){
         PrintWriter fileOut;
+        /*for(int i=0;i<candidatosVotos.size();i++){
+            candidatosVotos.get(i).toString();
+        }*/
         try{
             fileOut = new PrintWriter(new FileWriter("archivoCandidatos.txt",false));
             for(int i = 0; i< candidatosVotos.size();i++){
@@ -112,9 +115,18 @@ public class ManipuladorDocs {
     }
     public void escribirBitacora(String evento, String fecha){
         PrintWriter fileOut;
+        ArrayList<String> content = new ArrayList<String>();
+        content=getContenidoBitacora();
+        content.add(fecha +" "+evento);
         try{
-            fileOut = new PrintWriter(new FileWriter("bitacora.txt",true));
-            fileOut.println(fecha+" "+evento);
+            fileOut = new PrintWriter(new FileWriter("bitacora.txt",false));
+            for(int i=0;i<content.size();i++){
+                if(i==0){
+                    fileOut.print(content.get(i).toString());
+                }else{
+                    fileOut.print("\n"+content.get(i).toString());
+                }
+            }
             fileOut.close();
         }catch(FileNotFoundException e){
             System.out.println("Error: "+ e.getMessage());
@@ -123,14 +135,20 @@ public class ManipuladorDocs {
         }
     }
 
-    public String[] getContenidoBitacora(){
-        String[] content = new String[2];
-        int i = 0;
-           while (fileScanner.hasNextLine()) {
-               content[i]=fileScanner.nextLine()+"\n";
-               i++;
-           }
-           fileScanner.close();
+    public ArrayList<String> getContenidoBitacora(){
+        ArrayList<String> content = new ArrayList<String>();
+        try {
+            Scanner scanBit = new Scanner(new File(rutaArch));
+            while (scanBit.hasNextLine()) {
+                content.add(scanBit.nextLine());
+            }
+            scanBit.close();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+           
+           
        return content;
    }
     

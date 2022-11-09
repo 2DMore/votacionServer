@@ -55,32 +55,38 @@ public class actualizableImpServer implements Actualizable{
         boolean existe=false;
         voteJSON.accumulate("servicio", "votar");
         voteJSON.accumulate("respuestas", "1");
+        /*for(int i=0;i<productos.size();i++){
+            productos.get(i).toString();
+        }*/
         for(int i=0;i<arrayArch.length;i++){//Checar si el elemento a votar esta en el archivo
             if(solicitud.getString("variable1").equals(arrayArch[i])){
                 existe=true;
                 productos.get(i).aumentarVotos();
                 voteJSON.accumulate("respuesta1", solicitud.getString("variable1"));
                 voteJSON.accumulate("valor1", ""+productos.get(i).getVotos());
+                documento.escribirArchivo(productos);
             }
         }
         if(!existe){
             productos.add(new Producto(1, solicitud.getString("variable1")));
             voteJSON.accumulate("respuesta1", solicitud.getString("variable1"));
             voteJSON.accumulate("valor1", "1");
+            documento.escribirArchivo(productos);
         }
-        documento.escribirArchivo(productos);
+        
+        
         return voteJSON;
     }
 
     public JSONObject listarJSONVotos(){
-        String[] arrayBit=bitacora.getContenidoBitacora();
+        ArrayList<String> arrayBit=bitacora.getContenidoBitacora();
         JSONObject listJSON=new JSONObject();
-        listJSON.accumulate("servicio", "contar");
-        listJSON.accumulate("respuestas",""+arrayBit.length);
+        listJSON.accumulate("servicio", "listar");
+        listJSON.accumulate("respuestas",""+arrayBit.size());
         int j=1;
-        for(int i=0; i<arrayBit.length;i++){
+        for(int i=0; i<arrayBit.size();i++){
             listJSON.accumulate("respuesta"+j, "evento");
-            listJSON.accumulate("valor"+j, arrayBit[i]);
+            listJSON.accumulate("valor"+j, arrayBit.get(i).toString());
             j++;
         }
         return listJSON;
@@ -104,12 +110,12 @@ public class actualizableImpServer implements Actualizable{
         String evento=solicitud.getString("valor1");
         String fecha=solicitud.getString("valor2");
         bitacora.escribirBitacora(evento, fecha);
-        String[] arrayBit=bitacora.getContenidoBitacora();
+        ArrayList <String> arrayBit=bitacora.getContenidoBitacora();
         JSONObject bitJSON=new JSONObject();
         bitJSON.accumulate("servicio", "registrar");
         bitJSON.accumulate("respuestas", "1");
         bitJSON.accumulate("respuesta1", "eventos");
-        bitJSON.accumulate("valor1", ""+arrayBit.length);
+        bitJSON.accumulate("valor1", ""+arrayBit.size());
         return bitJSON;
     }
 }
