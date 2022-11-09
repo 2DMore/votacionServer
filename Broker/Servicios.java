@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.xml.crypto.OctetStreamData;
+import javax.xml.transform.Source;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -177,9 +178,13 @@ public class Servicios {
                 int port  = servidoresAct.getInt(1);
                 ClienteS coneccion  = new ClienteS();
                 try {
+                    System.out.println(ip+":"+port);
+                    System.out.println("Mensaje del server: "+parseEjecutarServer(objeto));
                    resultado = coneccion.mensajear(ip, port, parseEjecutarServer(objeto));
-                   System.out.println(resultado);
+                   System.out.println("Respuesta del server: "+resultado);
+
                    JSONObject envio= new JSONObject(resultado);
+                   System.out.println("Envio al cliente: "+parseEjecutarCliente(envio));
                    return parseEjecutarCliente(envio);
                 } catch (IOException ex) {
                    resultado = "{\"error\":1}";
@@ -201,8 +206,6 @@ public class Servicios {
             String val = "valor"+ Integer.toString(i+1);
             String variable = mensaje.getString(var);
             Object valor  = mensaje.get(val);
-            System.out.println("Variable:"+ variable);
-            System.out.println("Valor: "+ valor);
             if("servicio".equals(variable)){
                 respuesta.put("servicio", (String)valor);
                 

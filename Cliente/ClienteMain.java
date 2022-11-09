@@ -36,7 +36,7 @@ public class ClienteMain {
             System.out.println("No se pudo conectar al broker");
         }
         try {
-            String sendMessage = broker.sendMessage(Mensajes.votar("Producto 1"));
+            String sendMessage = broker.sendMessage(Mensajes.votar("chocholate"));
             System.out.println(sendMessage);
         } catch (IOException ex) {
         }
@@ -47,9 +47,9 @@ public class ClienteMain {
         vistaGraficaBarras barras = new vistaGraficaBarras();
         
         controladorVotos control = new controladorVotos(actualizable, VistaPrincipal, pastel, barras);
-        VistaPrincipal.setVisible(true);
-        vistaDoc.setVisible(false);
-        pastel.setVisible(true);
-        barras.setVisible(true);
+        //VistaPrincipal.setVisible(true);
+        //vistaDoc.setVisible(false);
+        //pastel.setVisible(true);
+        //barras.setVisible(true);
     }
 }

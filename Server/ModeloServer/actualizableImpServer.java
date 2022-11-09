@@ -14,10 +14,11 @@ public class actualizableImpServer implements Actualizable{
     private ManipuladorDocs documento = new ManipuladorDocs("archivoCandidatos.txt");
     private ManipuladorDocs bitacora = new ManipuladorDocs("bitacora.txt");
     private int[] votos;
-
+    String[] arrayCand;
+        int[] arrayVotos;
     public actualizableImpServer() {
-        String[] arrayCand=documento.obtenerCandidatosDoc();
-        int[] arrayVotos=documento.obtenerVotosDoc();
+        arrayCand  = documento.obtenerCandidatosDoc();
+        arrayVotos = documento.obtenerVotosDoc();
         
         
         for(int i=0;i<arrayCand.length;i++){
