@@ -100,3 +100,12 @@
 2022-11-11T11:27:49.371367800 Contar todos los votos
 2022-11-11T11:27:49.766216400 Listar todos los servicios del broker, Broker: 3434
 2022-11-11T11:27:49.798129900 Listar Bitacora, Cliente: 3434
+2022-11-11T11:41:15.137611600 Contar todos los votos
+2022-11-11T11:41:15.529125300 Listar todos los servicios del broker, Broker: 3434
+2022-11-11T11:41:15.560338400 Listar Bitacora, Cliente: 3434
+2022-11-11T11:41:21.144536400 Registar voto paraNintendo
+2022-11-11T11:41:21.191371200 Listar Bitacora, Cliente: 3434
+2022-11-11T11:41:25.997201200 Registar voto paraPc
+2022-11-11T11:41:26.012822300 Listar Bitacora, Cliente: 3434
+2022-11-11T11:41:30.329630400 Registar voto paraXbox
+2022-11-11T11:41:30.360871 Listar Bitacora, Cliente: 3434

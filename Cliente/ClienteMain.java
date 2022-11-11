@@ -27,13 +27,13 @@ public class ClienteMain {
     public static int portBroker;
     public static void main(String[] args) {
         broker = new ClienteB();
-        //String argumento = args[0];
-        //String[] partir = argumento.split(":");
-        //ipBroker = partir[0];
-        //portBroker = Integer.parseInt(partir[1]);
-        portBroker = 3434;
+        String argumento = args[0];
+        String[] partir = argumento.split(":");
+        ipBroker = partir[0];
+        portBroker = Integer.parseInt(partir[1]);
+        //portBroker = 3434;
         try{
-            broker.startConnection("127.0.0.1", portBroker);
+            broker.startConnection(ipBroker, portBroker);
         }catch(IOException ex){
             System.out.println("No se pudo conectar al broker");
         }
