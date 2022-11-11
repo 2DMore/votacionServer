@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.json.JSONObject;
+import Server.ModeloServer.Actualizable;
 
 /**
  *
  * @author isaac
  */
+
+
 public class actualizableImpServer implements Actualizable{
     private ArrayList<Producto> productos=new ArrayList<>();
     private ManipuladorDocs documento = new ManipuladorDocs("archivoCandidatos.txt");

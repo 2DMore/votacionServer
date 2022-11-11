@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.sound.sampled.Port;
+
 /**
  *
  * @author EQUIPO 1
@@ -29,8 +31,9 @@ public class ClienteMain {
         //String[] partir = argumento.split(":");
         //ipBroker = partir[0];
         //portBroker = Integer.parseInt(partir[1]);
+        portBroker = 3434;
         try{
-            broker.startConnection("127.0.0.1", 3434);
+            broker.startConnection("127.0.0.1", portBroker);
         }catch(IOException ex){
             System.out.println("No se pudo conectar al broker");
         }
@@ -41,10 +44,10 @@ public class ClienteMain {
         vistaGraficaBarras barras = new vistaGraficaBarras();
         
         controladorVotos control = new controladorVotos(actualizable, VistaPrincipal,listar, pastel, barras);
-        //VistaPrincipal.setVisible(true);
+        VistaPrincipal.setVisible(true);
         //vistaDoc.setVisible(false);
-        //pastel.setVisible(true);
-        //barras.setVisible(true);
+        pastel.setVisible(true);
+        barras.setVisible(true);
         listar.setVisible(true);
     }
 }

@@ -11,6 +11,11 @@ import Vista.vistaPrincipal;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -37,10 +42,20 @@ public class controladorVotos implements ActionListener{
         //this.vistaDoc = vistaDoc;
         this.vistaGraficaPastel = vistaPastel;
         this.vistaGraficabarras = barras;
-        
+
+    
+        double xvp =VistaPrincipal.getLocation().getX() ;
+        double yvp =VistaPrincipal.getLocation().getY();
+        reportes.setLocation((int)xvp +VistaPrincipal.getWidth() ,(int)yvp);
+
+        VistaPrincipal.setProducto1(actualizable.getProducto()[0].getNombreProducto());
+        VistaPrincipal.setProducto2(actualizable.getProducto()[1].getNombreProducto());
+        VistaPrincipal.setProducto3(actualizable.getProducto()[2].getNombreProducto());
+
         this.VistaPrincipal.getjButton1().addActionListener(this);
         this.VistaPrincipal.getjButton2().addActionListener(this);
         this.VistaPrincipal.getjButton3().addActionListener(this);
+
         this.reportes.getBuscar().addActionListener(this);
             generarGraficaDePastel();
             generarGraficaDeBarras();
@@ -51,19 +66,32 @@ public class controladorVotos implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent evento) {
         if(VistaPrincipal.getjButton1()== evento.getSource()){
-            actualizable.actualizarProductoUno();
+            try {
+                actualizable.actualizarProductoUno();
+            } catch (Exception e) {;
+                setWarningMsg(e.getMessage());
+            }
             //vistaDoc.getjTable1().setValueAt(actualizable.getProductoUnoVotos(), 0, 0);
             generarGraficaDePastel();
             generarGraficaDeBarras();
+            
         }
         if(VistaPrincipal.getjButton2()== evento.getSource()){
-            actualizable.actualizarProductoDos();
+            try {
+                actualizable.actualizarProductoDos();
+            } catch (Exception e) {
+                setWarningMsg(e.getMessage());
+            }
             //vistaDoc.getjTable1().setValueAt(actualizable.getProductoDosVotos(), 0, 1);
             generarGraficaDePastel();
             generarGraficaDeBarras();
         }
         if(VistaPrincipal.getjButton3()== evento.getSource()){
-            actualizable.actualizarProductoTres();
+            try {
+                actualizable.actualizarProductoTres();
+            } catch (Exception e) {
+                setWarningMsg(e.getMessage());
+            }
             //vistaDoc.getjTable1().setValueAt(actualizable.getProductoTresVotos(), 0, 2);
             generarGraficaDePastel();
             generarGraficaDeBarras();
@@ -125,5 +153,11 @@ public class controladorVotos implements ActionListener{
     public void actualizarBitacora(){
         String bitacora  = PeticionesListar.ActualizarBitacora();
         reportes.setTextoBitacora(bitacora);
+    }
+    public static void setWarningMsg(String text){
+        JOptionPane optionPane = new JOptionPane(text,JOptionPane.WARNING_MESSAGE);
+        JDialog dialog = optionPane.createDialog("Warning!");
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
     }
 }

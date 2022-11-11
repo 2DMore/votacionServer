@@ -178,7 +178,12 @@ public class Servicios {
             Object valor  = objeto.get(val);
             
             if("servicio".equals(variable)){
-                JSONArray servidoresD = servicios.getJSONArray((String)valor);
+                JSONArray servidoresD;
+                try{
+                    servidoresD = servicios.getJSONArray((String)valor);
+                }catch(JSONException js){
+                    return "";
+                }
                 JSONArray servidoresAct = servidores.getJSONArray((String)servidoresD.get(0));
                 String ip  = servidoresAct.getString(0);
                 int port  = servidoresAct.getInt(1);
@@ -197,7 +202,6 @@ public class Servicios {
                    return resultado;
                 } 
             }
-
         }
         return resultado;
     }
