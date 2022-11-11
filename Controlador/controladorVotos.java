@@ -1,7 +1,9 @@
 package Controlador;
 
+import Modelo.PeticionesListar;
 import Modelo.Producto;
 import Modelo.actualizableImp;
+import Vista.VistaListar;
 import Vista.vistaDocumentoPlano;
 import Vista.vistaGraficaBarras;
 import Vista.vistaGraficaPastel;
@@ -26,10 +28,12 @@ public class controladorVotos implements ActionListener{
     //private vistaDocumentoPlano vistaDoc;
     private vistaGraficaPastel vistaGraficaPastel;
     private vistaGraficaBarras vistaGraficabarras;
+    private VistaListar reportes;
 
-    public controladorVotos(actualizableImp actualizable, vistaPrincipal VistaPrincipal/*, vistaDocumentoPlano vistaDoc*/, vistaGraficaPastel vistaPastel, vistaGraficaBarras barras) {
+    public controladorVotos(actualizableImp actualizable, vistaPrincipal VistaPrincipal, VistaListar reportes, vistaGraficaPastel vistaPastel, vistaGraficaBarras barras) {
         this.actualizable = actualizable;
         this.VistaPrincipal = VistaPrincipal;
+        this.reportes = reportes;
         //this.vistaDoc = vistaDoc;
         this.vistaGraficaPastel = vistaPastel;
         this.vistaGraficabarras = barras;
@@ -60,6 +64,7 @@ public class controladorVotos implements ActionListener{
             //vistaDoc.getjTable1().setValueAt(actualizable.getProductoTresVotos(), 0, 2);
             generarGraficaDePastel();
             generarGraficaDeBarras();
+            iniciarListaServicios();
         }
     }
     
@@ -92,5 +97,11 @@ public class controladorVotos implements ActionListener{
         vistaGraficabarras.getjPanel2().removeAll();
         vistaGraficabarras.getjPanel2().add(cPanel);
         vistaGraficabarras.getjPanel2().validate();
+    }
+
+    public void iniciarListaServicios(){
+        String iniciar = PeticionesListar.listarServiciosBroker();
+        reportes.setListar(iniciar);
+        System.out.println("Entré aqui");
     }
 }

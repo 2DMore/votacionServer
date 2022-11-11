@@ -159,5 +159,9 @@ public class VistaListar extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextPane resultado;
     private javax.swing.JTextField servicio;
-    // End of variables declaration                   
+    // End of variables declaration
+    
+    public void setListar(String s){
+        resultado.setText(s);
+    }
 }

@@ -25,19 +25,14 @@ public class ClienteMain {
     public static int portBroker;
     public static void main(String[] args) {
         broker = new ClienteB();
-        String argumento = args[0];
-        String[] partir = argumento.split(":");
-        ipBroker = partir[0];
-        portBroker = Integer.parseInt(partir[1]);
+        //String argumento = args[0];
+        //String[] partir = argumento.split(":");
+        //ipBroker = partir[0];
+        //portBroker = Integer.parseInt(partir[1]);
         try{
             broker.startConnection("127.0.0.1", 3434);
         }catch(IOException ex){
             System.out.println("No se pudo conectar al broker");
-        }
-        try {
-            String sendMessage = broker.sendMessage(Mensajes.listarArchBit());
-            System.out.println(sendMessage);
-        } catch (IOException ex) {
         }
         actualizableImp actualizable = new actualizableImp(3);
         vistaPrincipal VistaPrincipal = new vistaPrincipal();
@@ -45,10 +40,11 @@ public class ClienteMain {
         vistaGraficaPastel pastel = new vistaGraficaPastel();
         vistaGraficaBarras barras = new vistaGraficaBarras();
         
-        controladorVotos control = new controladorVotos(actualizable, VistaPrincipal, pastel, barras);
+        controladorVotos control = new controladorVotos(actualizable, VistaPrincipal,listar, pastel, barras);
         //VistaPrincipal.setVisible(true);
         //vistaDoc.setVisible(false);
         //pastel.setVisible(true);
         //barras.setVisible(true);
+        listar.setVisible(true);
     }
 }

@@ -24,7 +24,7 @@ public class Main {
         vistaGraficaPastel pastel = new vistaGraficaPastel();
         vistaGraficaBarras barras = new vistaGraficaBarras();
         
-        controladorVotos control = new controladorVotos(actualizable, VistaPrincipal, pastel, barras);
+        //controladorVotos control = new controladorVotos(actualizable, VistaPrincipal, pastel, barras);
         VistaPrincipal.setVisible(true);
         vistaDoc.setVisible(false);
         pastel.setVisible(true);
