@@ -6,6 +6,7 @@ package Cliente;
 
 import Controlador.controladorVotos;
 import Modelo.actualizableImp;
+import Vista.VistaListar;
 import Vista.vistaDocumentoPlano;
 import Vista.vistaGraficaBarras;
 import Vista.vistaGraficaPastel;
@@ -20,16 +21,14 @@ import java.util.logging.Logger;
  */
 public class ClienteMain {
     public static ClienteB broker;
+    public static String ipBroker;
+    public static int portBroker;
     public static void main(String[] args) {
         broker = new ClienteB();
-        /*
         String argumento = args[0];
         String[] partir = argumento.split(":");
-        try {
-            broker.startConnection(partir[0],Integer.parseInt(partir[1]));
-        } catch (IOException ex) {
-            System.out.println("No se pudo comenzar la coneccion con el broker");
-        }*/
+        ipBroker = partir[0];
+        portBroker = Integer.parseInt(partir[1]);
         try{
             broker.startConnection("127.0.0.1", 3434);
         }catch(IOException ex){
@@ -42,7 +41,7 @@ public class ClienteMain {
         }
         actualizableImp actualizable = new actualizableImp(3);
         vistaPrincipal VistaPrincipal = new vistaPrincipal();
-        vistaDocumentoPlano vistaDoc = new vistaDocumentoPlano();
+        VistaListar listar = new VistaListar();
         vistaGraficaPastel pastel = new vistaGraficaPastel();
         vistaGraficaBarras barras = new vistaGraficaBarras();
         
