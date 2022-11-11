@@ -21,8 +21,9 @@ public class vistaPrincipal extends javax.swing.JFrame {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)size.getWidth();
         int height = (int)size.getHeight();
-
-        this.setLocation(width/2 - WIDTH/2, height/2 - HEIGHT/2);
+        //Centrar la ventana
+        //System.out.println("ancho: " + width+"| alto: "+ height);
+        this.setLocation((width -getWidth())/2, (height - getHeight())/2);
     }
 
     /**

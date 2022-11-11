@@ -73,9 +73,8 @@ public class controladorVotos implements ActionListener{
         datosPie.setValue(product[2].getNombreProducto(), product[2].getVotos());
         JFreeChart grafico = ChartFactory.createPieChart("Grafica pastel", datosPie,true ,true, false);
         ChartPanel cPanel = new ChartPanel(grafico);
-        
         vistaGraficaPastel.getjPanel1().removeAll();
-        vistaGraficaPastel.getjPanel1().add(cPanel,BorderLayout.CENTER);
+        vistaGraficaPastel.getjPanel1().add(cPanel,BorderLayout.NORTH);
         vistaGraficaPastel.getjPanel1().validate();
     }
     
