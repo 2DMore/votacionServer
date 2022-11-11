@@ -161,7 +161,19 @@ public class VistaListar extends javax.swing.JFrame {
     private javax.swing.JTextField servicio;
     // End of variables declaration
     
-    public void setListar(String s){
+    public javax.swing.JTextPane getResutadoCampo(){
+        return resultado;
+    }
+    public void setTextoRusltado(String s){
         resultado.setText(s);
+    }
+    public javax.swing.JButton getBuscar(){
+        return buscar;
+    }
+    public String textFieldServicio(){
+        return servicio.getText();
+    }
+    public void setTextoBitacora(String s){
+        bitacora.setText(s); 
     }
 }

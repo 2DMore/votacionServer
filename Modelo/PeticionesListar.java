@@ -16,16 +16,19 @@ public class PeticionesListar {
         try {
             serviciosString  = ClienteMain.broker.sendMessage(Mensajes.listar());
         } catch (IOException e) {
-            return "No se pudo enviar el mensaje al broker: \n" +e.getMessage();
+            return "No se pudo enviar el mensaje al broker: \n" +e.getMessage() ;
         }
         JSONObject respuesta = new JSONObject(serviciosString);
         int respuestas = respuesta.getInt("respuestas");
+
+        String devolver = "";
         for(int i=0; i< respuestas; i++){
             String respuestaA = respuesta.getString("respuesta"+(i+1));
+            respuestaA  = respuestaA.toUpperCase();
             String valorA = respuesta.getString("valor"+(i+1));
-            serviciosString += respuestaA +": "+ valorA + "\n";
+            devolver += respuestaA +": "+ valorA + "\n";
         }
-        return serviciosString;
+        return devolver;
     }
 
     public static String buscarServiciosBroker(String buscar){
@@ -37,16 +40,36 @@ public class PeticionesListar {
         }
         JSONObject respuesta = new JSONObject(serviciosString);
         int respuestas = respuesta.getInt("respuestas");
+        String devolver = "";
         for(int i=0; i< respuestas; i++){
             String respuestaA = respuesta.getString("respuesta"+(i+1));
             String valorA = respuesta.getString("valor"+(i+1));
-            serviciosString += respuestaA +": "+ valorA + "\n";
+            devolver += respuestaA +": "+ valorA + "\n";
         }
-        
-        if(serviciosString.equals("")){
-            serviciosString += "No se encontró encontró el servicio";
+
+        if(devolver.equals("")){
+            devolver += "No se encontró encontró el servicio, trata de ponerlo todo en minusculas";
         }
-        return serviciosString;
+        return devolver;
+    }
+
+    public static String ActualizarBitacora(){
+        String serviciosString;
+        try {
+            serviciosString  = ClienteMain.broker.sendMessage(Mensajes.listarArchBit());
+        } catch (IOException e) {
+            return "No se pudo enviar el mensaje al broker: \n" +e.getMessage();
+        }
+
+        JSONObject respuesta = new JSONObject(serviciosString);
+        int respuestas = respuesta.getInt("respuestas");
+        String devolver = "";
+        for(int i=1; i< respuestas; i++){
+            //String respuestaA = respuesta.getString("respuesta"+(i+1));
+            String valorA = respuesta.getString("valor"+(i+1));
+            devolver +=(i-1)+": "+ valorA + "\n";
+        }
+        return devolver;
     }
 
     

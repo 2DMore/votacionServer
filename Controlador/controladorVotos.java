@@ -41,8 +41,11 @@ public class controladorVotos implements ActionListener{
         this.VistaPrincipal.getjButton1().addActionListener(this);
         this.VistaPrincipal.getjButton2().addActionListener(this);
         this.VistaPrincipal.getjButton3().addActionListener(this);
+        this.reportes.getBuscar().addActionListener(this);
             generarGraficaDePastel();
             generarGraficaDeBarras();
+            iniciarListaServicios();
+            actualizarBitacora();
     }
     
     @Override
@@ -64,8 +67,12 @@ public class controladorVotos implements ActionListener{
             //vistaDoc.getjTable1().setValueAt(actualizable.getProductoTresVotos(), 0, 2);
             generarGraficaDePastel();
             generarGraficaDeBarras();
-            iniciarListaServicios();
         }
+        if(reportes.getBuscar() == evento.getSource()){
+            buscarServicioBroker();
+        }
+        actualizarBitacora();
+           
     }
     
     public void generarGraficaDePastel(){
@@ -101,7 +108,22 @@ public class controladorVotos implements ActionListener{
 
     public void iniciarListaServicios(){
         String iniciar = PeticionesListar.listarServiciosBroker();
-        reportes.setListar(iniciar);
+        reportes.setTextoRusltado(iniciar);
         System.out.println("Entré aqui");
+    }
+
+    public void buscarServicioBroker(){
+        String busquesa = reportes.textFieldServicio();
+        if(busquesa.equals("")){
+            iniciarListaServicios();
+        }else{
+            reportes.setTextoRusltado(PeticionesListar.buscarServiciosBroker(busquesa));
+        }
+
+    }
+
+    public void actualizarBitacora(){
+        String bitacora  = PeticionesListar.ActualizarBitacora();
+        reportes.setTextoBitacora(bitacora);
     }
 }
