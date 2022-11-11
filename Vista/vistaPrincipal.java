@@ -5,6 +5,7 @@
 package Vista;
 
 import javax.swing.JButton;
+import java.awt.*;
 
 /**
  *
@@ -17,6 +18,11 @@ public class vistaPrincipal extends javax.swing.JFrame {
      */
     public vistaPrincipal() {
         initComponents();
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        int width = (int)size.getWidth();
+        int height = (int)size.getHeight();
+
+        this.setLocation(width/2 - WIDTH/2, height/2 - HEIGHT/2);
     }
 
     /**
