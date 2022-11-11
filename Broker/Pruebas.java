@@ -4,6 +4,8 @@
  */
 package Broker;
 import org.json.JSONObject;
+
+import Cliente.Mensajes;
 /**
  *
  * @author EQUIPO 1
@@ -42,10 +44,9 @@ public class Pruebas {
         System.out.println(s.servicios.toString());
         
         
-        JSONObject listar = new JSONObject();
-        listar.accumulate("servicio", "listar");
-        listar.accumulate("variables", 1);
-        listar.accumulate("valor1", "registrar");
-        System.out.println(s.parseMensaje(listar.toString()));
+        
+        String mensajeVotar = Mensajes.votar("CHOCOLATE");
+        JSONObject mensaje = new JSONObject(mensajeVotar);
+        System.out.println(s.parseEjecutarServer(mensaje));
     }
 }

@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Modelo.Producto;
 
 /**
  *
@@ -46,25 +47,12 @@ public class ManipuladorDocs {
             fileScanner.close();
         return content;
     }
-
-
-    public int[] obtenerVotosDoc(){
-        String[] content = new String[3];
-        content=getContentFile();
-        int[] votos=new int[3];
-        for(int i=0;i<content.length;i++){
-            String[] columnas=content[i].split(",");
-            System.out.println(columnas[1]);
-            votos[i]=Integer.parseInt(columnas[1].trim());
-        }
-        return votos;
-    }
   
     public void closeFile(){
         fileScanner.close();
     }
     
-    public void escribirArchivo(Producto[] candidatosVotos){
+    /*public void escribirArchivo(Producto[] candidatosVotos){
         PrintWriter fileOut;
         try{
             fileOut = new PrintWriter(new FileWriter("archivoCandidatos.txt",false));
@@ -77,29 +65,6 @@ public class ManipuladorDocs {
         } catch (IOException ex) {
             Logger.getLogger(ManipuladorDocs.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    public void escribirBitacora(String evento, String fecha){
-        PrintWriter fileOut;
-        try{
-            fileOut = new PrintWriter(new FileWriter("bitacora.txt",true));
-            fileOut.println(fecha+" "+evento);
-            fileOut.close();
-        }catch(FileNotFoundException e){
-            System.out.println("Error: "+ e.getMessage());
-        } catch (IOException ex) {
-            Logger.getLogger(ManipuladorDocs.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public String[] getContenidoBitacora(){
-        String[] content = new String[2];
-        int i = 0;
-           while (fileScanner.hasNextLine()) {
-               content[i]=fileScanner.nextLine()+"\n";
-               i++;
-           }
-           fileScanner.close();
-       return content;
-   }
+    }*/
     
 }

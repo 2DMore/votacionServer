@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.xml.crypto.OctetStreamData;
+import javax.xml.transform.Source;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -83,7 +87,7 @@ public class Servicios {
         JSONObject respuesta  = new JSONObject();
         respuesta.accumulate("servicio","registrar");
         respuesta.accumulate("respuetas",1);
-        respuesta.accumulate("respuetas1","identificador");
+        respuesta.accumulate("respueta1","identificador");
         respuesta.accumulate("valor1",actual);
         return respuesta.toString();
     }
@@ -174,8 +178,14 @@ public class Servicios {
                 int port  = servidoresAct.getInt(1);
                 ClienteS coneccion  = new ClienteS();
                 try {
-                   resultado = coneccion.mensajear(ip, port, objeto.toString());
-                   return resultado;
+                    System.out.println(ip+":"+port);
+                    System.out.println("Mensaje del server: "+parseEjecutarServer(objeto));
+                   resultado = coneccion.mensajear(ip, port, parseEjecutarServer(objeto));
+                   System.out.println("Respuesta del server: "+resultado);
+
+                   JSONObject envio= new JSONObject(resultado);
+                   System.out.println("Envio al cliente: "+parseEjecutarCliente(envio));
+                   return parseEjecutarCliente(envio);
                 } catch (IOException ex) {
                    resultado = "{\"error\":1}";
                    return resultado;
@@ -184,5 +194,46 @@ public class Servicios {
 
         }
         return resultado;
+    }
+    
+    public String parseEjecutarServer(JSONObject mensaje){
+        JSONObject respuesta = new JSONObject();
+        int variables = mensaje.getInt("variables");
+        respuesta.put("variables", variables-1);
+        int j=1;
+        for(int i=0; i<variables; i++){
+            String var = "variable"+ Integer.toString(i+1);
+            String val = "valor"+ Integer.toString(i+1);
+            String variable = mensaje.getString(var);
+            Object valor  = mensaje.get(val);
+            if("servicio".equals(variable)){
+                respuesta.put("servicio", (String)valor);
+                
+            }else{
+                respuesta.put("variable"+j, variable);
+                respuesta.put("valor"+j, valor);
+                j++;
+            }
+            
+        }
+        return respuesta.toString();
+    }
+    public String parseEjecutarCliente(JSONObject mensaje){
+        JSONObject respuesta = new JSONObject();
+        int variables = mensaje.getInt("respuestas");
+        respuesta.put("servicio", "ejecutar");
+        respuesta.put("respuestas", variables+1);
+        respuesta.put("respuesta1", "servicio");
+        respuesta.put("valor1", mensaje.getString("servicio"));
+
+        for(int i=0; i<variables; i++){
+            String var = "respuesta"+ Integer.toString(i+1);
+            String val = "valor"+ Integer.toString(i+1);
+            String respustaA = mensaje.getString(var);
+            Object valor  = mensaje.get(val);
+            respuesta.put("respuesta"+(i+2), respustaA);
+            respuesta.put("valor"+(i+2), valor); 
+        }
+        return respuesta.toString();
     }
 }

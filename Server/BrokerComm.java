@@ -1,3 +1,5 @@
+package Server;
+
 /*
 
  */
@@ -25,8 +27,15 @@ public class BrokerComm {
         //new impesor(this);
     }
     
-    public void realizarConexionBroker(JSONObject serverInfo){
+    public String realizarConexionBroker(JSONObject serverInfo){
         out.write(serverInfo.toString());
+        String res ="Sin respuesta";
+        try {
+            res = in.readLine();
+        } catch (IOException ex) {
+            Logger.getLogger(BrokerComm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
     }
     
     public void prueba(String mensaje){

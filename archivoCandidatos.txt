@@ -1,3 +1,7 @@
-Producto 1,1
-Producto 2,0
-Producto 3,0
+Produc 1,7
+Product 2,7
+Producto 4,1
+FRESA,1
+FRESAa,1
+FRESAP,2
+chocholate,1
