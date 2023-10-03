@@ -5,3 +5,7 @@ FRESA,1
 FRESAa,1
 FRESAP,2
 chocholate,1
+Chocolate,1
+Xbox,53
+Pc,72
+Nintendo,26

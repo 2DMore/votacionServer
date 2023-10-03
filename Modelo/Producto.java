@@ -29,5 +29,8 @@ public class Producto {
     public String getNombreProducto() {
         return nombreProducto;
     }
+    public void setVotos(int i){
+        cantidadVotos =i;
+    }
      
 }

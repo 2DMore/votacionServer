@@ -15,16 +15,21 @@ public class Server {
      */
     public static void main(String[] args) {
         ServerMultiCliente server  = new ServerMultiCliente();
+        String argumento = args[0];
+        String[] partir = argumento.split(":");
+        
         try {
+            String ipActual = partir[0];
+            int portActual = Integer.parseInt(partir[1]);
             //Conexion por primera vez FUNCION DE CLIENTE UNICO
             JSONObject jsonServerInfo = new JSONObject();
-            Scanner lector = new Scanner(System.in);
+            //Scanner lector = new Scanner(System.in);
             //BrokerComm commBroker = new BrokerComm();
             ClienteB broker = new ClienteB();
             //String ipBroker=lector.nextLine();
             //int portBroker=Integer.parseInt(lector.nextLine());
-            String ipActual="127.0.0.1";
-            int portActual=3434;
+            //String ipActual="127.0.0.1";
+            //int portActual=3434;
             try{
                 System.out.println("Llegue aqui");
                 //commBroker.empezarConexion(ipActual, portActual);
@@ -62,8 +67,8 @@ public class Server {
             }
             
             server.start(6666);
-        } catch (IOException ex) {
-            System.out.println(ex);
+        } catch (Exception ex) {
+            System.out.println("Algo salio mal intentando iniciar el server\n"+ ex.getMessage());
         }
         /* 
         try {

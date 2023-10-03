@@ -13,6 +13,7 @@ import javax.xml.crypto.OctetStreamData;
 import javax.xml.transform.Source;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -125,7 +126,12 @@ public class Servicios {
             return listarTodo();
         }else{
             String ser = objeto.getString("valor1");
-            JSONArray actual= servicios.getJSONArray(ser);
+            JSONArray actual;
+            try{
+                actual= servicios.getJSONArray(ser);
+            }catch(JSONException js){
+                actual = new JSONArray();
+            }
             for(int i=0; i<actual.length(); i++){
                 respuestas++;
                 respuesta.accumulate("respuesta"+respuestas, ser);
@@ -172,7 +178,12 @@ public class Servicios {
             Object valor  = objeto.get(val);
             
             if("servicio".equals(variable)){
-                JSONArray servidoresD = servicios.getJSONArray((String)valor);
+                JSONArray servidoresD;
+                try{
+                    servidoresD = servicios.getJSONArray((String)valor);
+                }catch(JSONException js){
+                    return "";
+                }
                 JSONArray servidoresAct = servidores.getJSONArray((String)servidoresD.get(0));
                 String ip  = servidoresAct.getString(0);
                 int port  = servidoresAct.getInt(1);
@@ -191,7 +202,6 @@ public class Servicios {
                    return resultado;
                 } 
             }
-
         }
         return resultado;
     }

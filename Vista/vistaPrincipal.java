@@ -21,8 +21,9 @@ public class vistaPrincipal extends javax.swing.JFrame {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)size.getWidth();
         int height = (int)size.getHeight();
-
-        this.setLocation(width/2 - WIDTH/2, height/2 - HEIGHT/2);
+        //Centrar la ventana
+        //System.out.println("ancho: " + width+"| alto: "+ height);
+        this.setLocation((width -getWidth())/2, (height - getHeight())/2);
     }
 
     /**
@@ -157,4 +158,17 @@ public class vistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
+
+    public void setProducto1(String s){
+        jButton1.setText(s);
+        jLabel1.setText(s);
+    }
+    public void setProducto2(String s){
+        jButton2.setText(s);
+        jLabel2.setText(s);
+    }
+    public void setProducto3(String s){
+        jButton3.setText(s);
+        jLabel3.setText(s);
+    }
 }

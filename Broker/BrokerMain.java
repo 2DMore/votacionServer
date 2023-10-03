@@ -12,7 +12,7 @@ import java.net.Socket;
  */
 public class BrokerMain {
     public static void main(String[] args) {
-        String puerto = "3434";
+        String puerto = args[0];
         Broker broker = new Broker();
         broker.empezar(puerto);
         
