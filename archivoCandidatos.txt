@@ -6,6 +6,6 @@ FRESAa,1
 FRESAP,2
 chocholate,1
 Chocolate,1
-Xbox,18
-Pc,35
-Nintendo,19
+Xbox,53
+Pc,72
+Nintendo,26
